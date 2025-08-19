@@ -1,6 +1,7 @@
 
 import pandas as pd
 from .email_service import send_mail
+from .db_service import get_connection
 
 
 
@@ -25,32 +26,6 @@ def subjects_in_file(df):
 
 
 
-def add_student(roll_no, name, email, subjects: list[str]):
-    df = load_data()
-    if roll_no in df["RollNo"].values:
-        print(f" Roll No {roll_no} already exists")
-        return
-    
-    subjects = [s.strip().title() for s in subjects if s.strip()]
-
-    if not subjects:
-        print("!! [*]  The subjects Section Must have All subjects  !!")
-        return
-    
-    for s in subjects:
-        if s not in df.columns:
-            df[s] = 0
-    row = {"RollNo": roll_no, "Name": name, "Email": email}
-    
-    for s in subjects_in_file(df):
-        row[s] = 0
-    df = pd.concat([df, pd.DataFrame([row])], ignore_index=True)
-    save_data(df)
-    print(f" [Successfully Added !!] => {name}, {roll_no}")
-
-    send_mail(email,
-                f"Regarding to Adding you to New Batch",
-                f"Dear {name}, \n\nWe are pleased to inform you that you have been successfully added to the new batch for XYZ program ., \nYour Subjects are :\n {subjects}.\n\n Kind Regards, Registrar Office.",)
 
 
 

@@ -41,6 +41,7 @@ class LeaveTrackerGUI:
     def add_student(self):
         roll_no = simpledialog.askinteger("Add Student", "Enter Roll No:")
         if roll_no is None:
+            messagebox.showerror("Error","Error: Enter None as a Value")
             return
         name = simpledialog.askstring("Add Student", "Enter Name:")
         email = simpledialog.askstring("Add Student", "Enter Email:")
