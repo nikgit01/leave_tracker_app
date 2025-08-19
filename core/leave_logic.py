@@ -58,7 +58,7 @@ def update_student_email(roll_no, new_email):
     df = load_data()
     if roll_no not in df["RollNo"].values:
         print(f"!!  Student Not Found !!")
-        return
+        return False
     df.loc[df["RollNo"]== roll_no, "Email"] = new_email
     save_data(df)
     print("----[ Email Updated !! ]-----")
@@ -84,6 +84,19 @@ def reset_leaves(roll_no):
     student = df.loc[df["RollNo"] == roll_no, "Name"].iloc[0]
     save_data(df)
     print(f"------ leave are reset for Student: {student}, RollNo: {roll_no}---------")
+
+
+
+def delete_student(roll_no):
+    df = load_data()
+    if roll_no not in df["RollNo"].values:
+        print("!! Student not found !!")
+        return
+
+    index_to_del = df[df["RollNo"] == roll_no].index
+    df = df.drop(index_to_del)
+    save_data(df)
+    print(f"Roll No: {roll_no} was deleted successfully")
 
 
 # --------------- [marking leave + email triggers] ---------------
@@ -119,6 +132,8 @@ def mark_leave(roll_no, subject):
         send_mail(email,
                 f"Attendance Alert - {subject}",
                 f"Dear {name},\n\nYou have exceeded the maximum allowed leaves ({MAX_LEAVES}) in {subject}. You may not be allowed to appear for the exam.")
+        
+    
         
 
 

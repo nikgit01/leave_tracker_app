@@ -30,6 +30,9 @@ class LeaveTrackerGUI:
         btn_mark_leave = tk.Button(self.root, text="Mark Leave", width=30, command=self.mark_leave)
         btn_mark_leave.pack(pady=5)
 
+        btn_delete_student = tk.Button(self.root, text="Delete Student Records", width=30, command=self.delete_student)
+        btn_delete_student.pack(pady=5)
+
         btn_exit = tk.Button(self.root, text="Exit", width=30, command=self.root.quit)
         btn_exit.pack(pady=20)
 
@@ -63,11 +66,14 @@ class LeaveTrackerGUI:
         if roll_no is None:
             return
         email = simpledialog.askstring("Update Email", "Enter New Email:")
+
         if None in (roll_no, email):
             return
         
-        leave_logic.update_student_email(roll_no, email)
-        messagebox.showinfo("Success", "Email updated successfully.")
+        if leave_logic.update_student_email(roll_no, email):
+            messagebox.showinfo("Success", "Email updated successfully.")
+        else:
+            messagebox.showerror("Failed", "RollNo Not Found.")
 
     def view_leave_count(self):
         roll_no = simpledialog.askinteger("View Leave Count", "Enter Roll No:")
@@ -99,11 +105,18 @@ class LeaveTrackerGUI:
         leave_logic.mark_leave(roll_no, subject)
         df = leave_logic.load_data()
 
-
         messagebox.showinfo("Success", f"Leave marked for Roll No {roll_no} in {subject}")
 
+    def delete_student(self):
+        roll_no = simpledialog.askinteger("Delete record", "Enter Roll No:")
+        if roll_no is None:
+            messagebox.showerror("ERROR","Enter a valid Roll No")
+            return
+        leave_logic.delete_student(roll_no)
+        messagebox.showinfo("Deletion Completed", f"Roll No: {roll_no}, students record is deleted successfully.")
 
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = LeaveTrackerGUI(root)
-    root.mainloop()
+
+
+root = tk.Tk()
+app = LeaveTrackerGUI(root)
+root.mainloop()

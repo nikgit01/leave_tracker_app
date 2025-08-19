@@ -1,5 +1,5 @@
 from core.leave_logic import (
-    add_student, update_student_email, view_leave_count, reset_leaves, mark_leave
+    add_student, update_student_email, view_leave_count, reset_leaves, mark_leave, delete_student
 )
 
 def menu():
@@ -9,6 +9,7 @@ def menu():
     print("3) View leave count")
     print("4) Reset leaves (student)")
     print("5) Mark leave")
+    print("6) Delete Student Record")
     print("0) Exit")
 
 def main():
@@ -41,6 +42,10 @@ def main():
             roll_no = int(input("Roll_noNo: "))
             subject = input("Subject: ").strip().title()
             mark_leave(roll_no, subject)
+
+        elif choice == "6":
+            roll_no = int(input("Roll No: "))
+            delete_student(roll_no)
 
         elif choice == "0":
             print("bye!")
