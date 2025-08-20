@@ -7,7 +7,7 @@ class LeaveTrackerGUI:
     def __init__(self, root):
         self.root = root
         self.root.title("Leave Tracker System")
-        self.root.geometry("500x400")
+        self.root.geometry("500x450")
         self.create_widgets()
 
     def create_widgets(self):
@@ -35,6 +35,12 @@ class LeaveTrackerGUI:
 
         btn_export_excel = tk.Button(self.root, text="Export Excel File", width=30, command=self.export_excel)
         btn_export_excel.pack(pady=5)
+
+        btn_export_excel = tk.Button(self.root, text="Export Excel File", width=30, command=self.export_excel)
+        btn_export_excel.pack(pady=5)
+        
+        btn_export_pdf = tk.Button(self.root, text="Export PDF File", width=30, command=self.export_pdf)
+        btn_export_pdf.pack(pady=5)
 
         btn_exit = tk.Button(self.root, text="Exit", width=30, command=self.root.quit)
         btn_exit.pack(pady=20)
@@ -128,8 +134,17 @@ class LeaveTrackerGUI:
         leave_logic.delete_student(roll_no)
         messagebox.showinfo("Deletion Completed", f"Roll No: {roll_no}, students record is deleted successfully.")
 
+    def export_pdf(self):
+        value, result_msg = export_service.export_pdf()
+
+    
+        if value:
+            messagebox.showinfo("Success", f"{result_msg}")
+        else:
+            messagebox.showinfo("Failed", f"{result_msg}")
+
     def export_excel(self):
-        value, result_msg = export_service.export_to_excel()
+        value, result_msg = export_service.export_pdf()
 
     
         if value:
