@@ -244,7 +244,6 @@ def mark_leave(roll_no, subject):
             return True, f"Student: {name}, Roll no: {roll_no}, Marked Leave in {subject}."
     
     except Exception as e:
-        conn.rollback()
         print(f"[ERROR] Could not Mark as leaves: {e}")
         return False, f"[ERROR] Could not reset leaves: {e}"
     

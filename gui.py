@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox, simpledialog
 from core import leave_logic
-
+from core import export_service
 
 class LeaveTrackerGUI:
     def __init__(self, root):
@@ -32,6 +32,9 @@ class LeaveTrackerGUI:
 
         btn_delete_student = tk.Button(self.root, text="Delete Student Records", width=30, command=self.delete_student)
         btn_delete_student.pack(pady=5)
+
+        btn_export_excel = tk.Button(self.root, text="Export Excel File", width=30, command=self.export_excel)
+        btn_export_excel.pack(pady=5)
 
         btn_exit = tk.Button(self.root, text="Exit", width=30, command=self.root.quit)
         btn_exit.pack(pady=20)
@@ -124,6 +127,15 @@ class LeaveTrackerGUI:
             return
         leave_logic.delete_student(roll_no)
         messagebox.showinfo("Deletion Completed", f"Roll No: {roll_no}, students record is deleted successfully.")
+
+    def export_excel(self):
+        value, result_msg = export_service.export_to_excel()
+
+    
+        if value:
+            messagebox.showinfo("Success", f"{result_msg}")
+        else:
+            messagebox.showinfo("Failed", f"{result_msg}")
 
 
 
