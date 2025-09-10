@@ -35,9 +35,6 @@ class LeaveTrackerGUI:
 
         btn_export_excel = tk.Button(self.root, text="Export Excel File", width=30, command=self.export_excel)
         btn_export_excel.pack(pady=5)
-
-        btn_export_excel = tk.Button(self.root, text="Export Excel File", width=30, command=self.export_excel)
-        btn_export_excel.pack(pady=5)
         
         btn_export_pdf = tk.Button(self.root, text="Export PDF File", width=30, command=self.export_pdf)
         btn_export_pdf.pack(pady=5)
@@ -144,7 +141,7 @@ class LeaveTrackerGUI:
             messagebox.showinfo("Failed", f"{result_msg}")
 
     def export_excel(self):
-        value, result_msg = export_service.export_pdf()
+        value, result_msg = export_service.export_to_excel()
 
     
         if value:
